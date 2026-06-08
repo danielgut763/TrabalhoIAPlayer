@@ -3,6 +3,7 @@ from typing import Tuple
 from ..othello.gamestate import GameState
 from ..othello.board import Board
 from .minimax import minimax_move
+import time
 
 # Voce pode criar funcoes auxiliares neste arquivo
 # e tambem modulos auxiliares neste pacote.
@@ -36,8 +37,14 @@ def make_move(state) -> Tuple[int, int]:
     # a primeira jogada 
     # Remova-o e coloque uma chamada para o minimax_move (que vc implementara' no modulo minimax).
     # A chamada a minimax_move deve receber sua funcao evaluate como parametro.
+    start_time = time.perf_counter()
 
-    return random.choice([(2, 3), (4, 5), (5, 4), (3, 2)])
+    move = minimax_move(state, 5, evaluate_mask)
+
+    end_time = time.perf_counter()
+    print(f"Minimax Mask move calculated in {end_time - start_time:.4f} seconds")
+
+    return move
 
 
 def evaluate_mask(state, player:str) -> float:
@@ -49,4 +56,27 @@ def evaluate_mask(state, player:str) -> float:
     :param state: state to evaluate (instance of GameState)
     :param player: player to evaluate the state for (B or W)
     """
-    return 0   # substitua pelo seu codigo
+
+    board = state.get_board()
+    opponent = Board.opponent(player)
+    
+    if board.is_terminal_state(): # implementado para chegagem terminal 
+        vencedor = board.winner()
+        if vencedor == player:
+            return float('inf') # Retorna infinito positivo para vitória
+        elif vencedor == opponent:
+            return float('-inf') # Retorna infinito negativo para derrota
+        else:
+            return 0.0 # Retorna 0 para empate
+
+    value = 0
+    for x in range(8):
+        for y in range(8):
+            piece = board.tiles[x][y]
+            if piece == player:
+                value += EVAL_TEMPLATE[x][y]
+            elif piece == opponent:
+                value -= EVAL_TEMPLATE[x][y]
+    
+    return float(value)
+

@@ -1,4 +1,5 @@
 import random
+import time
 from typing import Tuple
 from ..othello.gamestate import GameState
 from ..othello.board import Board
@@ -22,8 +23,14 @@ def make_move(state) -> Tuple[int, int]:
     # a primeira jogada 
     # Remova-o e coloque uma chamada para o minimax_move (que vc implementara' no modulo minimax).
     # A chamada a minimax_move deve receber sua funcao evaluate como parametro.
+    start_time = time.perf_counter()
 
-    return minimax_move(state, 5, evaluate_count)
+    move = minimax_move(state, 5, evaluate_count)
+
+    end_time = time.perf_counter()
+    print(f"Minimax Count move calculated in {end_time - start_time:.4f} seconds")
+
+    return move
 
 
 def evaluate_count(state, player:str) -> float:
