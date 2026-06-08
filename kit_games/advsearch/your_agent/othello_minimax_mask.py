@@ -58,16 +58,7 @@ def evaluate_mask(state, player:str) -> float:
     """
 
     board = state.get_board()
-    opponent = Board.opponent(player)
-    
-    if board.is_terminal_state(): # implementado para chegagem terminal 
-        vencedor = board.winner()
-        if vencedor == player:
-            return float('inf') # Retorna infinito positivo para vitória
-        elif vencedor == opponent:
-            return float('-inf') # Retorna infinito negativo para derrota
-        else:
-            return 0.0 # Retorna 0 para empate
+    opponent = Board.opponent(player) 
 
     value = 0
     for x in range(8):
