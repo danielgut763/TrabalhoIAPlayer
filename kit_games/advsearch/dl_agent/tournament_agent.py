@@ -2,6 +2,9 @@ import random
 from typing import Tuple
 from ..othello.gamestate import GameState
 from ..othello.board import Board
+from .minimax import minimax_move
+from .othello_minimax_custom import evaluate_custom
+import time
 
 # Voce pode criar funcoes auxiliares neste arquivo
 # e tambem modulos auxiliares neste pacote.
@@ -25,6 +28,12 @@ def make_move(state) -> Tuple[int, int]:
     # Remova-o e coloque a sua implementacao da poda alpha-beta
 
     if state.game_name == 'Othello':
-        return random.choice([(2, 3), (4, 5), (5, 4), (3, 2)])
 
+        start_time = time.perf_counter()
+        
+        move = minimax_move(state, 5, evaluate_custom)
+    
+        end_time = time.perf_counter()
+        print(f"Minimax Tournament move calculated in {end_time - start_time:.4f} seconds")
+        return move
 
