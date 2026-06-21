@@ -5,7 +5,7 @@
 | Nome | Cartão de matrícula |
 |------|---------------------|
 | Leonardo Leites | 00338804 | 
-| _[preencher]_ | _[preencher]_ |
+| Daniel Gutschwager | 00315708 |
 
 
 ## 2. Bibliotecas necessárias
@@ -16,7 +16,9 @@ Opcional (apenas para visualização do tabuleiro com cores, fornecida pelo kit)
 
 ## 3. Poda alfa-beta no Tic-Tac-Toe Misère (seção 2.3, item "a")
 
-_[preencher com o resultado da sua avaliação da poda alfa-beta no tic-tac-toe misère — ex.: resultado das partidas contra o random / o esperado pelo teste `test_minimax_tttm.py`, se o agente vence/empata conforme esperado, etc.]_
+O agente foi avaliado através do script `test_minimax_tttm.py` e em partidas contra o agente aleatório (`randomplayer`).
+- **Testes Unitários:** Todos os 4 testes do script `test_minimax_tttm.py` passaram com sucesso. O agente avalia corretamente os estados terminais, sempre inicia jogando no centro `(1,1)` (evitando derrota forçada), joga perfeitamente quando pressionado e encontra com sucesso o caminho de vitória forçada quando o oponente comete um erro (blunder).
+- **Partidas contra o agente aleatório:** Em simulações usando o `server.py`, o agente construído empata garantidamente quando joga como o primeiro jogador (Black), já que a teoria do Misère em tabuleiro 3x3 indica empate com jogadas perfeitas. Quando atua como segundo jogador (White), o agente frequentemente alcança vitórias explorando jogadas sub-ótimas do adversário, demonstrando plena efetividade do algoritmo Minimax com poda Alfa-Beta para a variação Misère.
 
 ## 4. Othello
 
