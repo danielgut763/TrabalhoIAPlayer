@@ -52,7 +52,7 @@ def make_move(state) -> Tuple[int, int]:
                     break #se o tempo esgotar, sai do loop
         except TempoEsgotado:
             pass #se a exceção for lançada, apenas sai do loop e retorna a melhor jogada encontrada até o momento
-
+        # print(f"profundidade: {profundidade - 1} time: {time.perf_counter() - (deadline - TEMPO_LIMITE):.4f} seconds")
         return melhor_jogada
             
 
