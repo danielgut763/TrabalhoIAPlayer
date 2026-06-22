@@ -20,6 +20,26 @@ O agente foi avaliado através do script `test_minimax_tttm.py` e em partidas co
 - **Testes Unitários:** Todos os 4 testes do script `test_minimax_tttm.py` passaram com sucesso. O agente avalia corretamente os estados terminais, sempre inicia jogando no centro `(1,1)` (evitando derrota forçada), joga perfeitamente quando pressionado e encontra com sucesso o caminho de vitória forçada quando o oponente comete um erro (blunder).
 - **Partidas contra o agente aleatório:** Em simulações usando o `server.py`, o agente construído empata garantidamente quando joga como o primeiro jogador (Black), já que a teoria do Misère em tabuleiro 3x3 indica empate com jogadas perfeitas. Quando atua como segundo jogador (White), o agente frequentemente alcança vitórias explorando jogadas sub-ótimas do adversário, demonstrando plena efetividade do algoritmo Minimax com poda Alfa-Beta para a variação Misère.
 
+### Resultados do Mini-Torneio Tic-Tac-Toe Misère
+| Partida | Jogador 1 (B - Pretas) | Jogador 2 (W - Brancas) | Vencedor |
+| :---: | :--- | :--- | :--- |
+| **1** | Minimax | Aleatório | **Minimax** |
+| **2** | Aleatório | Minimax | **Minimax** |
+| **3** | Minimax | Aleatório | **Empate** |
+| **4** | Aleatório | Minimax | **Minimax** |
+| **5** | Minimax | Aleatório | **Minimax** |
+| **6** | Aleatório | Minimax | **Minimax** |
+
+### Desempenho Geral e Conclusão
+
+| Colocação | Agente | Vitórias | Empates | Derrotas |
+| :---: | :--- | :---: | :---: | :---: |
+| **1º** | **Minimax** | **5** | **1** | **0** |
+| **2º** | **Aleatório** | **0** | **1** | **5** |
+
+**Conclusão:**
+A implementação do algoritmo **Minimax** demonstrou superioridade absoluta contra o agente Aleatório, terminando a série de forma invicta com 5 vitórias e 1 empate. Como esperado, o Minimax foi capaz de forçar vitórias sistemáticas explorando as jogadas sub-ótimas (blunders) do adversário, tanto jogando como primeiro (Pretas) quanto como segundo jogador (Brancas).
+
 
 ## 4. Othello
 
