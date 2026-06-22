@@ -30,8 +30,8 @@ def make_move(state) -> Tuple[int, int]:
 
     # chama o minimax com poda alfa-beta (profundidade fixa 5) usando a heuristica customizada
     start_time = time.perf_counter()
-
-    move =  minimax_move(state, 5, evaluate_custom)
+    # print (evaluate_custom(state, 'B'), evaluate_custom(state, 'W'))
+    move =  minimax_move(state, 4, evaluate_custom)
 
     # mede e imprime o tempo gasto no calculo da jogada
     end_time = time.perf_counter()
@@ -100,17 +100,17 @@ def evaluate_custom(state, player:str) -> float:
     # fase 5: Define pesos para cada fase do jogo
     espacos_vazios = board.num_pieces(Board.EMPTY)
     if espacos_vazios > 44: # Início
-        peso_posicional = 10
-        peso_mobilidade = 50
-        peso_pecas = -5
+        peso_posicional = 35
+        peso_mobilidade = 10
+        peso_pecas = -1
     elif espacos_vazios > 14: # Meio
-        peso_posicional = 20
-        peso_mobilidade = 20
-        peso_pecas = 5
+        peso_posicional = 25
+        peso_mobilidade = 15
+        peso_pecas = 10
     else: # Fim
-        peso_posicional = 30
+        peso_posicional = 20
         peso_mobilidade = 5
-        peso_pecas = 40
+        peso_pecas = 50
 
     # fase 6: Combina as pontuações ponderadas para obter a avaliação final
     return float((score_posicional * peso_posicional) + 

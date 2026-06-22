@@ -12,6 +12,8 @@ import time
 # Nao esqueca de renomear 'your_agent' com o nome
 # do seu agente.
 
+class TempoEsgotado(Exception):
+    pass
 
 def make_move(state) -> Tuple[int, int]:
     """
@@ -23,17 +25,35 @@ def make_move(state) -> Tuple[int, int]:
     :return: (int, int) tuple with x, y coordinates of the move (remember: 0 is the first row/column)
     """
 
-    # o codigo abaixo apenas retorna um movimento aleatorio valido para
-    # a primeira jogada 
-    # Remova-o e coloque a sua implementacao da poda alpha-beta
-
     if state.game_name == 'Othello':
+        TEMPO_LIMITE = 4 #aqui adicionamos o tempo maximo para calcular a jogada. Se não chegar a
+        # máxima profundidade e o tempo chegar a 4sec, retorna a melhjor jogada encontrada até o momento.
+        deadline = time.perf_counter() + TEMPO_LIMITE
 
-        start_time = time.perf_counter()
-        
-        move = minimax_move(state, 5, evaluate_custom)
-    
-        end_time = time.perf_counter()
-        print(f"Minimax Tournament move calculated in {end_time - start_time:.4f} seconds")
-        return move
+        def verifica_com_tempo(state, player):
+            if time.perf_counter() > deadline:
+                raise TempoEsgotado() #lança a exceção para interromper o cálculo da jogada
+            return evaluate_custom(state, player) #aqui retorna a avaliação da jogada
+
+        melhor_jogada = None #aqui retorna uma jogada válida caso o tempo esgote antes de encontrar a melhor jogada
+        jogadas = list(state.legal_moves())
+
+        if jogadas:
+            melhor_jogada = jogadas[0] #inicializa a melhor jogada com a primeira jogada legal
+
+        profundidade = 1
+        try:
+            while profundidade <= 10: #aqui tentamos encontrar a melhor jogada aumentando a profundidade até o limite de 10
+                move = minimax_move(state, profundidade, verifica_com_tempo) #aqui chama o minimax com a função de avaliação que verifica o tempo
+                if move is not None:
+                    melhor_jogada = move #atualiza a melhor jogada encontrada
+                profundidade += 1
+                if time.perf_counter() > deadline:
+                    break #se o tempo esgotar, sai do loop
+        except TempoEsgotado:
+            pass #se a exceção for lançada, apenas sai do loop e retorna a melhor jogada encontrada até o momento
+
+        return melhor_jogada
+            
+
 

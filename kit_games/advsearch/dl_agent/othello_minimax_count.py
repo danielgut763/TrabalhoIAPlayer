@@ -25,7 +25,7 @@ def make_move(state) -> Tuple[int, int]:
     # A chamada a minimax_move deve receber sua funcao evaluate como parametro.
     start_time = time.perf_counter()
 
-    move = minimax_move(state, 5, evaluate_count)
+    move = minimax_move(state, 4, evaluate_count)
 
     end_time = time.perf_counter()
     print(f"Minimax Count move calculated in {end_time - start_time:.4f} seconds")
